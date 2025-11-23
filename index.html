@@ -207,44 +207,5 @@
             Links will open in MSAR app if installed, otherwise in browser
         </p>
     </div>
-
-    <script>
-        // Track page views (optional - for analytics)
-        const CONFIG = {
-            apiUrl: 'https://api.yourdomain.com/api/deeplink/track'
-        };
-
-        function getMobileOS() {
-            const ua = navigator.userAgent || navigator.vendor || window.opera;
-            if (/android/i.test(ua)) return 'Android';
-            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'iOS';
-            return 'Other';
-        }
-
-        // Optional: Track page visit
-        function trackPageView() {
-            fetch(CONFIG.apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    url: window.location.href,
-                    platform: getMobileOS(),
-                    userAgent: navigator.userAgent,
-                    timestamp: new Date().toISOString(),
-                    action: 'page_view'
-                })
-            }).catch(err => console.log('Tracking failed:', err));
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            console.log('MSAR Landing Page Loaded');
-            console.log('Platform:', getMobileOS());
-            
-            // Optional: Track page view
-            // trackPageView();
-        });
-    </script>
 </body>
 </html>

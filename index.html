@@ -1,209 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSAR - Deep Link Test</title>
-
+    <title>MSAR - Opening App...</title>
+    
     <!-- iOS Smart Banner -->
     <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID, app-argument=msar://">
-
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .app-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 18px;
-            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 22px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
             font-weight: bold;
             color: white;
+            animation: pulse 2s ease-in-out infinite;
         }
-
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
         h1 {
+            font-size: 28px;
             color: #333;
             margin-bottom: 10px;
-            font-size: 28px;
         }
-
+        
         .subtitle {
             color: #666;
             margin-bottom: 30px;
+            font-size: 16px;
         }
-
-        .link-button {
-            display: block;
-            width: 100%;
-            padding: 15px 20px;
-            margin-bottom: 12px;
+        
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        
+        .status.checking {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status.redirect {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-decoration: none;
-            border-radius: 10px;
-            font-weight: 500;
-            transition: transform 0.2s;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            text-align: center;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
         }
-
-        .link-button:hover {
+        
+        .btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hidden {
+            display: none;
         }
 
-        .store-badges {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .store-badge {
-            flex: 1;
-            display: block;
-        }
-
-        .store-badge img {
-            width: 100%;
-            height: auto;
-        }
-
-        .note {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+        .info-text {
+            font-size: 14px;
+            color: #999;
             margin-top: 20px;
         }
 
-        .note-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
         }
 
-        .note-text {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: progress 3s ease-out;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <div class="app-header">
-            <div class="app-icon">M</div>
-            <h1>MSAR App</h1>
-            <p class="subtitle">Test your deep linking</p>
+        <div class="app-icon">M</div>
+        <h1>MSAR</h1>
+        <p class="subtitle">Opening your app...</p>
+        
+        <div id="statusChecking" class="status checking">
+            <span class="loading"></span>
+            Attempting to open MSAR app...
         </div>
-
-        <!-- Open App Home Page -->
-        <a href="#" id="openHome" class="link-button">
-            Open App Home Page
-        </a>
-
-        <!-- Open App Profile Page -->
-        <a href="#" id="openProfile" class="link-button">
-            Open Profile Page
-        </a>
-
-        <div class="store-badges">
-            <a href="https://play.google.com/store/apps/details?id=com.msar.app" class="store-badge" target="_blank">
-                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-                    alt="Get it on Google Play">
-            </a>
-            <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="store-badge" target="_blank">
-                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                    alt="Download on App Store">
-            </a>
+        
+        <div id="statusSuccess" class="status success hidden">
+            ✅ Opening MSAR app...
         </div>
-
-        <div class="note">
-            <div class="note-title">📝 Notes:</div>
-            <div class="note-text">
-                Clicking a button will attempt to open the app. If the app is not installed, it redirects to Google Play
-                or App Store.
+        
+        <div id="statusRedirect" class="status redirect hidden">
+            📱 App not installed. Redirecting to Google Play Store...
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
             </div>
         </div>
+        
+        <div id="manualButtons" class="hidden">
+            <a id="openAppBtn" href="msar://" class="btn">
+                Try Opening App Again
+            </a>
+            <a id="playStoreBtn" href="https://play.google.com/store/apps/details?id=com.msar.app" class="btn btn-secondary" target="_blank">
+                Open Google Play Store
+            </a>
+        </div>
+        
+        <p class="info-text">
+            If nothing happens, please install MSAR from Google Play Store
+        </p>
     </div>
 
     <script>
-        const appPackage = "com.msar.app"; // Android app package
-        const fallbackUrl = "https://play.google.com/store/apps/details?id=com.msar.app";
+        const CONFIG = {
+            // Deep link schemes
+            customScheme: 'msar://',
+            httpsScheme: 'https://yourusername.github.io/your-repo-name/', // Update with your actual URL
+            
+            // Store URLs
+            playStoreUrl: 'https://play.google.com/store/apps/details?id=com.msar.app',
+            appStoreUrl: 'https://apps.apple.com/app/idYOUR_APP_ID',
+            
+            // Timing
+            appCheckTimeout: 2500, // Time to wait before assuming app is not installed
+            redirectDelay: 3000,    // Time to show message before redirecting to store
+            
+            // API (optional)
+            apiUrl: 'https://api.yourdomain.com/api/deeplink/track'
+        };
 
-        function openApp(path) {
-            const ua = navigator.userAgent || navigator.vendor || window.opera;
-            const now = new Date().getTime();
-            const timeout = 1500;
+        // DOM Elements
+        const statusChecking = document.getElementById('statusChecking');
+        const statusSuccess = document.getElementById('statusSuccess');
+        const statusRedirect = document.getElementById('statusRedirect');
+        const manualButtons = document.getElementById('manualButtons');
+        const playStoreBtn = document.getElementById('playStoreBtn');
 
-            // Android: intent://
-            if (/android/i.test(ua)) {
-                const intentUrl = `intent://${path}#Intent;scheme=https;package=${appPackage};end`;
-                window.location = intentUrl;
-                setTimeout(() => { window.location = fallbackUrl; }, timeout);
+        // Detect mobile OS
+        function getMobileOS() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                return 'Android';
             }
-            // iOS: custom scheme
-            else if (/iPhone|iPad|iPod/i.test(ua)) {
-                const iframe = document.createElement("iframe");
-                iframe.style.display = "none";
-                iframe.src = `msar://${path}`;
-                document.body.appendChild(iframe);
-
-                setTimeout(() => {
-                    const elapsed = new Date().getTime() - now;
-                    if (elapsed < timeout + 100) {
-                        window.location = fallbackUrl;
-                    }
-                }, timeout);
+            
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'iOS';
             }
-            // Desktop fallback
-            else {
-                window.location = fallbackUrl;
-            }
+            
+            return 'Other';
         }
 
-        document.getElementById("openHome").addEventListener("click", function (e) {
-            e.preventDefault();
-            openApp(""); // empty path = app initial/home page
+        // Track deep link attempt
+        function trackAttempt(hasApp) {
+            fetch(CONFIG.apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    url: window.location.href,
+                    platform: getMobileOS(),
+                    hasApp: hasApp,
+                    userAgent: navigator.userAgent,
+                    timestamp: new Date().toISOString()
+                })
+            }).catch(err => console.log('Tracking failed:', err));
+        }
+
+        // Attempt to open the app
+        function attemptToOpenApp() {
+            const os = getMobileOS();
+            const startTime = Date.now();
+            let hasFocus = true;
+            let hasRedirected = false;
+
+            console.log('Attempting to open MSAR app...');
+            console.log('Platform:', os);
+
+            // Track page visibility changes
+            const handleVisibilityChange = () => {
+                if (document.hidden) {
+                    hasFocus = false;
+                    console.log('Page hidden - app likely opened');
+                }
+            };
+
+            const handleBlur = () => {
+                hasFocus = false;
+                console.log('Page lost focus - app likely opened');
+            };
+
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+            window.addEventListener('blur', handleBlur);
+            window.addEventListener('pagehide', handleBlur);
+
+            // Try to open app using custom scheme (most reliable)
+            if (os === 'Android') {
+                // Method 1: Try intent scheme (Android)
+                const intentUrl = `intent://#Intent;scheme=msar;package=com.msar.app;end`;
+                window.location.href = intentUrl;
+                
+                // Fallback to custom scheme after short delay
+                setTimeout(() => {
+                    if (!hasRedirected) {
+                        window.location.href = CONFIG.customScheme;
+                    }
+                }, 100);
+            } else if (os === 'iOS') {
+                // iOS: Use custom scheme
+                window.location.href = CONFIG.customScheme;
+            } else {
+                // Desktop or unknown: Show manual options
+                showManualOptions();
+                return;
+            }
+
+            // Check after timeout if app opened
+            setTimeout(() => {
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+                window.removeEventListener('blur', handleBlur);
+                window.removeEventListener('pagehide', handleBlur);
+
+                const elapsedTime = Date.now() - startTime;
+                
+                console.log('Check result:', {
+                    hasFocus,
+                    hidden: document.hidden,
+                    elapsedTime
+                });
+
+                // If page lost focus or is hidden, assume app opened
+                if (!hasFocus || document.hidden) {
+                    showAppOpened();
+                    trackAttempt(true);
+                } else {
+                    // App not installed - redirect to store
+                    showRedirectToStore(os);
+                    trackAttempt(false);
+                    hasRedirected = true;
+                }
+            }, CONFIG.appCheckTimeout);
+        }
+
+        // Show app opened successfully
+        function showAppOpened() {
+            statusChecking.classList.add('hidden');
+            statusSuccess.classList.remove('hidden');
+            statusRedirect.classList.add('hidden');
+            
+            console.log('App opened successfully');
+        }
+
+        // Show redirect to store message
+        function showRedirectToStore(os) {
+            statusChecking.classList.add('hidden');
+            statusSuccess.classList.add('hidden');
+            statusRedirect.classList.remove('hidden');
+            manualButtons.classList.remove('hidden');
+
+            console.log('App not found, redirecting to store...');
+
+            // Auto-redirect after delay
+            setTimeout(() => {
+                if (!document.hidden) {
+                    const storeUrl = os === 'iOS' ? CONFIG.appStoreUrl : CONFIG.playStoreUrl;
+                    console.log('Redirecting to:', storeUrl);
+                    window.location.href = storeUrl;
+                }
+            }, CONFIG.redirectDelay);
+        }
+
+        // Show manual options (for desktop)
+        function showManualOptions() {
+            statusChecking.classList.add('hidden');
+            statusRedirect.innerHTML = '💻 Please open this page on your mobile device';
+            statusRedirect.classList.remove('hidden');
+            manualButtons.classList.remove('hidden');
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Page loaded, initializing deep link...');
+            
+            const os = getMobileOS();
+            
+            if (os === 'Other') {
+                // Desktop - show manual options
+                showManualOptions();
+            } else {
+                // Mobile - attempt to open app
+                attemptToOpenApp();
+            }
         });
 
-        document.getElementById("openProfile").addEventListener("click", function (e) {
+        // Handle manual button clicks
+        document.getElementById('openAppBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            openApp("profile"); // profile page
+            statusChecking.classList.remove('hidden');
+            statusRedirect.classList.add('hidden');
+            manualButtons.classList.add('hidden');
+            attemptToOpenApp();
         });
     </script>
 </body>
-
 </html>

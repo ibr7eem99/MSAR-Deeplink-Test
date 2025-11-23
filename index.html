@@ -141,40 +141,6 @@
             return true;
         }
 
-        function openApp() {
-            const os = getMobileOS();
-
-            if (!shouldAttemptOpen()) {
-                showStoreButtons();
-                return;
-            }
-
-            if (os === 'Android') {
-                window.location.href = CONFIG.intentUrl;
-
-                setTimeout(() => {
-                    showStoreButtons();
-                }, 3000);
-
-            } else if (os === 'iOS') {
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = 'https://ibr7eem99.github.io/';
-                document.body.appendChild(iframe);
-
-                setTimeout(() => {
-                    document.body.removeChild(iframe);
-                    showStoreButtons();
-                }, 2000);
-
-            } else {
-                // Desktop or other platforms
-                document.querySelector('.loader').style.display = 'none';
-                document.getElementById('status').textContent = 'This link is designed for mobile devices.';
-                showStoreButtons();
-            }
-        }
-
         function showStoreButtons() {
             document.querySelector('.loader').style.display = 'none';
             document.getElementById('status').textContent = 'App not installed? Get it now:';
@@ -215,6 +181,40 @@
             e.preventDefault();
             tryOpenAppThenStore(CONFIG.appStoreUrl, 'https://ibr7eem99.github.io/');
         });
+
+        function openApp() {
+            const os = getMobileOS();
+
+            if (!shouldAttemptOpen()) {
+                showStoreButtons();
+                return;
+            }
+
+            if (os === 'Android') {
+                window.location.href = CONFIG.intentUrl;
+
+                setTimeout(() => {
+                    showStoreButtons();
+                }, 3000);
+
+            } else if (os === 'iOS') { 
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = 'https://ibr7eem99.github.io/';
+                document.body.appendChild(iframe);
+
+                setTimeout(() => {
+                    document.body.removeChild(iframe);
+                    showStoreButtons();
+                }, 2000);
+
+            } else {
+                // Desktop or other platforms
+                document.querySelector('.loader').style.display = 'none';
+                document.getElementById('status').textContent = 'This link is designed for mobile devices.';
+                showStoreButtons();
+            }
+        }
 
         window.addEventListener('load', () => {
             setTimeout(openApp, 500);

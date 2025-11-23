@@ -1,14 +1,15 @@
 [
-    {
-        "relation": [
-            "delegate_permission/common.handle_all_urls"
-        ],
-        "target": {
-            "namespace": "android_app",
-            "package_name": "com.msar.app",
-            "sha256_cert_fingerprints": [
-                "BB:B4:9C:2C:76:8E:84:EC:27:D7:96:E1:24:67:61:4E:3E:02:B1:6E:EC:7E:0F:FA:18:52:16:1C:85:2B:2B:F9"
-            ]
-        }
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.msar.app",
+      "sha256_cert_fingerprints": [
+        "4E:E6:67:72:B5:3A:7E:84:6C:CF:90:BB:20:CA:4C:A8:5C:6C:6A:35:E2:15:10:AD:2A:2C:DC:5C:DA:76:ED:02"
+      ]
     }
+  }
 ]

@@ -3,209 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSAR - Welcome</title>
+    <title>Opening App...</title>
     
-    <!-- iOS Smart Banner -->
-    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+    <!-- iOS Smart App Banner -->
+    <meta name="apple-itunes-app" content="app-id=YOUR_IOS_APP_ID">
     
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
         .container {
-            max-width: 500px;
-            width: 100%;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 1rem;
         }
         
-        .app-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 22px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            font-weight: bold;
-            color: white;
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         h1 {
-            font-size: 28px;
             color: #333;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
         
-        .subtitle {
+        p {
             color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
+            margin-bottom: 1.5rem;
             line-height: 1.6;
         }
         
-        .info-box {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 14px;
-            color: #1565c0;
-            text-align: left;
-        }
-
-        .btn-large {
-            display: block;
-            width: 100%;
-            padding: 20px 32px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .button {
+            display: inline-block;
+            padding: 12px 32px;
+            background: #667eea;
             color: white;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 18px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            border: none;
-            cursor: pointer;
-            margin-bottom: 15px;
-        }
-        
-        .btn-large:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-large:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: #f5f5f5;
-            color: #333;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .links-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .links-section h3 {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .link-item {
-            display: block;
-            padding: 15px;
-            background: #f8f9fa;
             border-radius: 8px;
-            margin-bottom: 10px;
-            text-decoration: none;
-            color: #333;
-            transition: background 0.2s;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin: 0.5rem;
         }
-
-        .link-item:hover {
-            background: #e9ecef;
+        
+        .button:hover {
+            background: #5568d3;
         }
-
-        .link-item strong {
-            display: block;
-            margin-bottom: 5px;
-            color: #667eea;
+        
+        .button.secondary {
+            background: #764ba2;
         }
-
-        .link-item small {
-            color: #666;
-            font-size: 12px;
+        
+        .button.secondary:hover {
+            background: #653a8b;
         }
-
-        .divider {
-            height: 1px;
-            background: #e0e0e0;
-            margin: 25px 0;
-        }
-
-        .small-text {
-            font-size: 13px;
-            color: #999;
-            margin-top: 15px;
+        
+        #message {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="app-icon">M</div>
-        <h1>Welcome to MSAR</h1>
-        <p class="subtitle">
-            Experience the full power of MSAR with our mobile app
-        </p>
+        <div class="loader"></div>
+        <h1>Opening App...</h1>
+        <p id="status">Attempting to open the app. Please wait...</p>
         
-        <div class="info-box">
-            <strong>📱 How it works:</strong><br>
-            • If you have the app installed, links will open in the app automatically<br>
-            • If not, you'll be redirected to download from Play Store
+        <div id="message">
+            <p>Don't have the app yet?</p>
+            <a href="#" id="playStoreBtn" class="button">Get it on Google Play</a>
+            <a href="#" id="appStoreBtn" class="button secondary">Download on App Store</a>
         </div>
-        
-        <!-- Download App Button -->
-        <a href="https://play.google.com/store/apps/details?id=com.msar.app" 
-           class="btn-large" 
-           target="_blank">
-            🏪 Get MSAR App
-        </a>
-
-        <div class="divider"></div>
-
-        <!-- Deep Link Examples Section -->
-        <div class="links-section">
-            <h3>Try these links (App required):</h3>
-            
-            <a href="product/123.html" class="link-item">
-                <strong>📦 Product #123</strong>
-                <small>Premium Wireless Headphones</small>
-            </a>
-            
-            <a href="product/456.html" class="link-item">
-                <strong>📦 Product #456</strong>
-                <small>Smart Fitness Watch</small>
-            </a>
-            
-            <a href="profile.html" class="link-item">
-                <strong>👤 My Profile</strong>
-                <small>View your account details</small>
-            </a>
-            
-            <a href="settings.html" class="link-item">
-                <strong>⚙️ Settings</strong>
-                <small>Configure your preferences</small>
-            </a>
-        </div>
-        
-        <p class="small-text">
-            Links will open in MSAR app if installed, otherwise in browser
-        </p>
     </div>
+
+    <script>
+        // Configuration - Replace with your actual values
+        const CONFIG = {
+            appScheme: 'yourapp://',  // Your deep link URL scheme (fallback)
+            appLink: 'https://ibr7eem99.github.io/',  // Your app link (HTTPS)
+            androidPackage: 'com.yourcompany.yourapp',
+            iosAppId: 'YOUR_IOS_APP_ID',
+            playStoreUrl: 'https://play.google.com/store/apps/details?id=com.yourcompany.yourapp',
+            appStoreUrl: 'https://apps.apple.com/app/idYOUR_IOS_APP_ID'
+        };
+
+        // Detect user's platform
+        function getMobileOS() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                return 'Android';
+            }
+            
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'iOS';
+            }
+            
+            return 'Other';
+        }
+
+        // Try to open the app
+        function openApp() {
+            const os = getMobileOS();
+            const now = Date.now();
+            
+            if (os === 'Android') {
+                // For Android, try app link first
+                window.location.href = CONFIG.appLink;
+                
+                // If app doesn't open within 2 seconds, redirect to Play Store
+                setTimeout(() => {
+                    if (Date.now() - now < 2100) {
+                        window.location.href = CONFIG.playStoreUrl;
+                    }
+                }, 2000);
+                
+            } else if (os === 'iOS') {
+                // For iOS, try universal link
+                window.location.href = CONFIG.appLink;
+                
+                // iOS will show the Smart App Banner automatically if app isn't installed
+                // But we can also provide a manual fallback
+                setTimeout(() => {
+                    document.getElementById('message').style.display = 'block';
+                    document.getElementById('status').textContent = 'If the app didn\'t open automatically:';
+                }, 2000);
+                
+            } else {
+                // Desktop or other platforms
+                document.querySelector('.loader').style.display = 'none';
+                document.getElementById('status').textContent = 'This link is designed for mobile devices.';
+                document.getElementById('message').style.display = 'block';
+            }
+        }
+
+        // Set up store buttons
+        document.getElementById('playStoreBtn').href = CONFIG.playStoreUrl;
+        document.getElementById('appStoreBtn').href = CONFIG.appStoreUrl;
+
+        // Auto-trigger when page loads
+        window.addEventListener('load', () => {
+            setTimeout(openApp, 500);
+        });
+
+        // Show store buttons after a delay
+        setTimeout(() => {
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('status').textContent = 'If the app didn\'t open automatically:';
+        }, 3000);
+    </script>
 </body>
 </html>

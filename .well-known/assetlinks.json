@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.msar.app",
+            "sha256_cert_fingerprints": [
+                "BB:B4:9C:2C:76:8E:84:EC:27:D7:96:E1:24:67:61:4E:3E:02:B1:6E:EC:7E:0F:FA:18:52:16:1C:85:2B:2B:F9"
+            ]
+        }
+    }
+]

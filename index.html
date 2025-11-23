@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deep Link Test - Home</title>
+    <title>MSAR - Deep Link Test</title>
 
     <!-- iOS Smart Banner -->
-    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID, app-argument=myapp://">
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID, app-argument=msar://">
 
     <style>
         * {
@@ -32,17 +32,34 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 18px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+        }
+
         h1 {
             color: #333;
             margin-bottom: 10px;
             font-size: 28px;
-            text-align: center;
         }
 
         .subtitle {
             color: #666;
             margin-bottom: 30px;
-            text-align: center;
         }
 
         .section {
@@ -127,17 +144,58 @@
             background: #ffebee;
             color: #c62828;
         }
+
+        .store-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .store-badge {
+            flex: 1;
+            display: block;
+        }
+
+        .store-badge img {
+            width: 100%;
+            height: auto;
+        }
+
+        .note {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin-top: 20px;
+        }
+
+        .note-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .note-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>🚀 Deep Link Test Home</h1>
-        <p class="subtitle">Test your Flutter app deep linking</p>
+        <div class="app-header">
+            <div class="app-icon">M</div>
+            <h1>MSAR App</h1>
+            <p class="subtitle">Test your deep linking</p>
+        </div>
 
         <div class="info-box">
             <p><strong>Testing Instructions:</strong></p>
-            <p>1. Install your Flutter app on this device</p>
+            <p>1. Install MSAR app on this device</p>
             <p>2. Click any link below</p>
             <p>3. Your app should open to the correct screen</p>
         </div>
@@ -145,29 +203,50 @@
         <div class="section">
             <div class="section-title">📱 Custom Scheme Links</div>
 
-            <a href="myapp://" class="link-button">
-                <span class="link-text">Open App Home</span>
-                <span class="link-url">myapp://</span>
+            <a href="msar://" class="link-button">
+                <span class="link-text">Open MSAR App Home</span>
+                <span class="link-url">msar://</span>
             </a>
 
-            <a href="myapp://profile" class="link-button">
+            <a href="msar://profile" class="link-button">
                 <span class="link-text">Profile Page</span>
-                <span class="link-url">myapp://profile</span>
+                <span class="link-url">msar://profile</span>
             </a>
         </div>
 
         <div class="section">
             <div class="section-title">🌐 HTTPS Links (Universal Links)</div>
-
             <a href="profile.html" class="link-button">
                 <span class="link-text">Profile (Web)</span>
-                <span class="link-url">https://yourusername.github.io/deeplink-test/profile.html</span>
+                <span class="link-url">https://ibr7eem99.github.io/MSAR-Deeplink-Test/profile.html</span>
             </a>
         </div>
 
         <div id="status" class="status"></div>
-    </div>
 
+        <div class="store-badges">
+            <a href="https://play.google.com/store/apps/details?id=com.msar.app" class="store-badge" target="_blank">
+                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                    alt="Get it on Google Play">
+            </a>
+            <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="store-badge" target="_blank">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                    alt="Download on App Store">
+            </a>
+        </div>
+
+        <div class="note">
+            <div class="note-title">📝 Testing Notes:</div>
+            <div class="note-text">
+                <strong>Custom Scheme (msar://):</strong> Works immediately after app installation. These are the
+                easiest to test first.<br><br>
+                <strong>Universal Links (HTTPS):</strong> Require your domain to serve the proper JSON files and may
+                take time to verify. Replace URLs with your actual domain.<br><br>
+                <strong>Tip:</strong> Long-press a link to see options, or open in a new tab to test different
+                scenarios.
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -62,19 +62,6 @@
             margin-bottom: 30px;
         }
 
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #667eea;
-        }
-
         .link-button {
             display: block;
             width: 100%;
@@ -87,62 +74,11 @@
             font-weight: 500;
             transition: transform 0.2s;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-align: center;
         }
 
         .link-button:hover {
             transform: translateY(-2px);
-        }
-
-        .link-text {
-            font-size: 16px;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .link-url {
-            font-size: 12px;
-            opacity: 0.8;
-            font-family: monospace;
-        }
-
-        .info-box {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .info-box p {
-            font-size: 14px;
-            color: #1565c0;
-            margin-bottom: 5px;
-        }
-
-        .status {
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-            display: none;
-        }
-
-        .status.show {
-            display: block;
-        }
-
-        .status.checking {
-            background: #fff3e0;
-            color: #f57c00;
-        }
-
-        .status.success {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .status.error {
-            background: #ffebee;
-            color: #c62828;
         }
 
         .store-badges {
@@ -193,36 +129,15 @@
             <p class="subtitle">Test your deep linking</p>
         </div>
 
-        <div class="info-box">
-            <p><strong>Testing Instructions:</strong></p>
-            <p>1. Install MSAR app on this device</p>
-            <p>2. Click any link below</p>
-            <p>3. Your app should open to the correct screen</p>
-        </div>
+        <!-- Open App Home Page -->
+        <a href="#" id="openHome" class="link-button">
+            Open App Home Page
+        </a>
 
-        <div class="section">
-            <div class="section-title">📱 Custom Scheme Links</div>
-
-            <a href="msar://" class="link-button">
-                <span class="link-text">Open MSAR App Home</span>
-                <span class="link-url">msar://</span>
-            </a>
-
-            <a href="msar://profile" class="link-button">
-                <span class="link-text">Profile Page</span>
-                <span class="link-url">msar://profile</span>
-            </a>
-        </div>
-
-        <div class="section">
-            <div class="section-title">🌐 HTTPS Links (Universal Links)</div>
-            <a href="profile.html" class="link-button">
-                <span class="link-text">Profile (Web)</span>
-                <span class="link-url">https://ibr7eem99.github.io/profile.html</span>
-            </a>
-        </div>
-
-        <div id="status" class="status"></div>
+        <!-- Open App Profile Page -->
+        <a href="#" id="openProfile" class="link-button">
+            Open Profile Page
+        </a>
 
         <div class="store-badges">
             <a href="https://play.google.com/store/apps/details?id=com.msar.app" class="store-badge" target="_blank">
@@ -236,17 +151,59 @@
         </div>
 
         <div class="note">
-            <div class="note-title">📝 Testing Notes:</div>
+            <div class="note-title">📝 Notes:</div>
             <div class="note-text">
-                <strong>Custom Scheme (msar://):</strong> Works immediately after app installation. These are the
-                easiest to test first.<br><br>
-                <strong>Universal Links (HTTPS):</strong> Require your domain to serve the proper JSON files and may
-                take time to verify. Replace URLs with your actual domain.<br><br>
-                <strong>Tip:</strong> Long-press a link to see options, or open in a new tab to test different
-                scenarios.
+                Clicking a button will attempt to open the app. If the app is not installed, it redirects to Google Play
+                or App Store.
             </div>
         </div>
     </div>
+
+    <script>
+        const appPackage = "com.msar.app"; // Android app package
+        const fallbackUrl = "https://play.google.com/store/apps/details?id=com.msar.app";
+
+        function openApp(path) {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const now = new Date().getTime();
+            const timeout = 1500;
+
+            // Android: intent://
+            if (/android/i.test(ua)) {
+                const intentUrl = `intent://${path}#Intent;scheme=https;package=${appPackage};end`;
+                window.location = intentUrl;
+                setTimeout(() => { window.location = fallbackUrl; }, timeout);
+            }
+            // iOS: custom scheme
+            else if (/iPhone|iPad|iPod/i.test(ua)) {
+                const iframe = document.createElement("iframe");
+                iframe.style.display = "none";
+                iframe.src = `msar://${path}`;
+                document.body.appendChild(iframe);
+
+                setTimeout(() => {
+                    const elapsed = new Date().getTime() - now;
+                    if (elapsed < timeout + 100) {
+                        window.location = fallbackUrl;
+                    }
+                }, timeout);
+            }
+            // Desktop fallback
+            else {
+                window.location = fallbackUrl;
+            }
+        }
+
+        document.getElementById("openHome").addEventListener("click", function (e) {
+            e.preventDefault();
+            openApp(""); // empty path = app initial/home page
+        });
+
+        document.getElementById("openProfile").addEventListener("click", function (e) {
+            e.preventDefault();
+            openApp("profile"); // profile page
+        });
+    </script>
 </body>
 
 </html>
